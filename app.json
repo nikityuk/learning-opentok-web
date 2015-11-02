@@ -1,0 +1,19 @@
+{
+  "name": "Learning OpenTok",
+  "description": "An OpenTok sample client to demonstrate OpenTok archiving functionality",
+  "keywords": [
+    "WebRTC",
+    "OpenTok",
+    "video",
+    "chat",
+    "communications"
+  ],
+  "website": "https://tokbox.com",
+  "repository": "https://github.com/opentok/learning-opentok-web",
+  "env": {
+    "SDK_SERVER_URL": {
+      "description": "Url of the server that provides OpenTok SDK",
+      "required": true
+    }
+  }
+}

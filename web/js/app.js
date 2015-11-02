@@ -9,7 +9,7 @@ $(document).ready(function() {
   archiveID = null;
 
   // Make an Ajax request to get the OpenTok API key, session ID, and token from the server
-  $.get(SAMPLE_SERVER_BASE_URL + '/session', function(res) {
+  $.get(SDK_SERVER_URL + '/session', function(res) {
     apiKey = res.apiKey;
     sessionId = res.sessionId;
     token = res.token;
@@ -34,13 +34,13 @@ function initializeSession() {
     archiveID = event.id;
     console.log('Archive started ' + archiveID);
     $('#stop').show();
-    $('#start').hide();
+    $('.start').hide();
   });
 
   session.on('archiveStopped', function(event) {
     archiveID = event.id;
     console.log('Archive stopped ' + archiveID);
-    $('#start').hide();
+    $('.start').hide();
     $('#stop').hide();
     $('#view').show();
   });
@@ -67,15 +67,16 @@ function initializeSession() {
 }
 
 // Start recording
-function startArchive() {
-  $.post(SAMPLE_SERVER_BASE_URL + '/start/' + sessionId);
-  $('#start').hide();
+function startArchive(audioOnly) {
+  audioOnly = audioOnly || false;
+  $.post(SDK_SERVER_URL + '/start/' + sessionId, {hasVideo: !audioOnly});
+  $('.start').hide();
   $('#stop').show();
 }
 
 // Stop recording
 function stopArchive() {
-  $.post(SAMPLE_SERVER_BASE_URL + '/stop/' + archiveID);
+  $.post(SDK_SERVER_URL + '/stop/' + archiveID);
   $('#stop').hide();
   $('#view').prop('disabled', false);
   $('#stop').show();
@@ -85,8 +86,8 @@ function stopArchive() {
 // every 5 secs until it is "available"
 function viewArchive() {
   $('#view').prop('disabled', true);
-  window.location = SAMPLE_SERVER_BASE_URL + '/view/' + archiveID;
+  window.location = SDK_SERVER_URL + '/view/' + archiveID;
 }
 
-$('#start').show();
+$('.start').show();
 $('#view').hide();

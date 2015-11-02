@@ -17,13 +17,16 @@
     </div>
     <div id="buttonholder">
        <div id="buttons">
-            <button type="button" id="start" onClick="javascript:startArchive()" class="btn btn-danger">Start Archive</button>
+            <button type="button" id="start" onClick="javascript:startArchive()" class="btn btn-danger start">Start Archive</button>
+            <button type="button" id="start-audio" onClick="javascript:startArchive(true)" class="btn btn-danger start">Start Archive (audio only)</button>
             <button type="button" id="stop" onClick="javascript:stopArchive()" class="btn btn-danger">Stop Archive</button>
             <button type="button" id="view" onClick="javascript:viewArchive()" class="btn btn-danger" disabled>View Archive</button>
        </div>
     </div>
 
-    <script type="text/javascript" src="/js/config.js"></script>
+    <script type="text/javascript">
+        var SAMPLE_SERVER_BASE_URL = '<?php echo getenv('SDK_SERVER_URL')?>';
+    </script>
     <script type="text/javascript" src="/js/app.js"></script>
 </body>
 
