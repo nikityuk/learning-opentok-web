@@ -34,15 +34,13 @@ function initializeSession() {
     archiveID = event.id;
     console.log('Archive started ' + archiveID);
     $('#stop').show();
-    $('.start').hide();
   });
 
   session.on('archiveStopped', function(event) {
     archiveID = event.id;
     console.log('Archive stopped ' + archiveID);
-    $('.start').hide();
-    $('#stop').hide();
-    $('#view').show();
+    $('.start').show();
+    $('#view').prop('disabled', false).show();
   });
 
   session.on('sessionDisconnected', function(event) {
@@ -71,22 +69,22 @@ function startArchive(audioOnly) {
   audioOnly = audioOnly || false;
   $.post(SDK_SERVER_URL + '/start/' + sessionId, {hasVideo: !audioOnly});
   $('.start').hide();
-  $('#stop').show();
+  $('#view').hide();
 }
 
 // Stop recording
 function stopArchive() {
   $.post(SDK_SERVER_URL + '/stop/' + archiveID);
   $('#stop').hide();
-  $('#view').prop('disabled', false);
-  $('#stop').show();
+  $('#view').prop('disabled', true).show();
+  $('.start').show();
 }
 
 // Get the archive status. If it is  "available", download it. Otherwise, keep checking
 // every 5 secs until it is "available"
 function viewArchive() {
-  $('#view').prop('disabled', true);
-  window.location = SDK_SERVER_URL + '/view/' + archiveID;
+  $('#view').prop('disabled', true).hide();
+  window.open(SDK_SERVER_URL + '/view/' + archiveID);
 }
 
 $('.start').show();
